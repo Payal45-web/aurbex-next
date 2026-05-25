@@ -1,0 +1,179 @@
+@import '../../styles/variables';
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // ✅ Distribute items across mobile width
+    width: 100%;
+    position: fixed;
+    left: 0;
+    height: 60px;
+    background-color: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border-color);
+    top: 0;
+    z-index: 1100;
+    padding: 0 16px;
+
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__hamburger {
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        display: flex;
+
+        @media (min-width: 1024px) {
+            display: none;
+        }
+
+        // Hide on large screens
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &-icon {
+            width: 32px;
+            height: 32px;
+            background: #6c63ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        &-text {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            // Hide text on tiny screens if logo icon is enough
+            @media (max-width: 400px) {
+                display: none;
+            }
+        }
+    }
+
+    // ── Search (Desktop Only by default) ──────────
+    &__search {
+        display: none; // ✅ Hidden on mobile
+        position: relative;
+        flex: 1;
+        max-width: 300px;
+        margin: 0 24px;
+
+        @media (min-width: 768px) {
+            display: block; // ✅ Show on tablets and up
+        }
+
+        &-input {
+            width: 100%;
+            padding: 8px 16px 8px 40px;
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 99px;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        &-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .search-mobile-btn {
+            @media (min-width: 768px) {
+                display: none;
+            }
+
+            // Hide when real search bar shows
+        }
+
+        .hide-mobile {
+            @media (max-width: 600px) {
+                display: none;
+            }
+        }
+    }
+
+    &__icon-btn {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 8px;
+
+        &-info {
+            text-align: right;
+
+            @media (max-width: 900px) {
+                display: none;
+            }
+
+            // Hide name before avatar
+        }
+
+        &-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        &-role {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        &-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #6c63ff;
+        }
+    }
+
+    &__divider {
+        width: 1px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 8px;
+    }
+}

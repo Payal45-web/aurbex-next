@@ -1,0 +1,65 @@
+@import '../../styles/variables';
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    box-shadow: var(--card-shadow);
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: 11px;
+        color: var(--text-secondary); // ✅ Changed to variable
+        font-weight: 500;
+    }
+
+    &__icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: inherit;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary); // ✅ Changed to variable
+        margin: 0;
+    }
+
+    &__trend {
+        font-size: 11px;
+        font-weight: 600;
+
+        &.positive {
+            color: #00e5a0;
+        }
+
+        &.negative {
+            color: #ff60af;
+        }
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}

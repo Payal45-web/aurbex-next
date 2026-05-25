@@ -1,0 +1,286 @@
+@import '../../styles/variables';
+
+// ─── Size tokens ───────────────────────────────────────────
+$sidebar-full: 290px;
+$sidebar-medium: 240px;
+$sidebar-collapsed: 70px;
+$navbar-height: 64px;
+
+.sidebar {
+  width: $sidebar-full;
+  background-color: var(--bg-sidebar);
+  height: calc(100vh - #{$navbar-height} - 20px);
+  position: fixed;
+  left: 10px;
+  top: calc(#{$navbar-height} + 10px);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 99;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: visible; // clips content during width transition
+
+  // ── MEDIUM screens (1025–1280px) — slightly narrower ────
+  @media (max-width: 1280px) and (min-width: 1025px) {
+    width: $sidebar-medium;
+  }
+
+  // ── TABLET (769–1024px) — icons only, auto-collapsed ────
+  @media (max-width: 1024px) and (min-width: 769px) {
+    width: $sidebar-collapsed;
+
+    .sidebar__item {
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .sidebar__toggle {
+      right: -10px;
+    }
+  }
+
+  // ── MOBILE (≤768px) — hidden off-screen ─────────────────
+  @media (max-width: 768px) {
+    width: $sidebar-full; // full width when it slides in
+    transform: translateX(-120%); // hidden off left edge
+    left: 0;
+    top: 0;
+    height: 100vh;
+    border-radius: 0 24px 24px 0;
+    z-index: 1000;
+    padding-top: 80px;
+
+    .sidebar__menu {
+      padding-top: 10px; // Extra breathing room
+    }
+  }
+
+  // ── Mobile open state (added by JS) ─────────────────────
+  &.mobile-open {
+    transform: translateX(0); // slides in
+  }
+
+  &.mobile-hidden {
+    transform: translateX(-120%);
+  }
+
+  // ── Manual collapsed (button click) ─────────────────────
+  &.collapsed {
+    width: $sidebar-collapsed;
+
+    .sidebar__item {
+      justify-content: center;
+      padding: 10px 0;
+    }
+  }
+
+  // ── Toggle button (the purple circle) ───────────────────
+  &__toggle {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: #6c63ff;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: #8b85ff;
+    }
+  }
+
+  // ── Hamburger button (mobile only, sits outside sidebar) ─
+  // Styled in global or App.scss — see below
+
+  // ── Menu list ───────────────────────────────────────────
+  &__menu {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    // Thin scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+      scrollbar-color: #2a2d3e transparent;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 999px;
+      transition: background 0.3s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: #2a2d3e;
+    }
+  }
+
+  // ── Nav items ───────────────────────────────────────────
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+
+    &:hover {
+      color: var(--text-primary);
+      background: var(--bg-mini-stat);
+
+    }
+
+    &.active {
+      background: linear-gradient(90deg, #664dd5 0%, #924cd4 100%);
+      color: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(108, 99, 255, 0.25);
+
+      .sidebar__icon {
+        opacity: 1;
+        color: #fff;
+      }
+    }
+  }
+
+  &__icon {
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // ── Footer ──────────────────────────────────────────────
+  &__footer {
+    padding: 12px;
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+
+  &__admin-card {
+    background: var(--bg-mini-stat);
+    padding: 12px;
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+  }
+
+  &__admin-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 4px 8px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__admin-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 700;
+
+    .sparkle {
+      color: #a855f7;
+    }
+  }
+
+  &__admin-arrow {
+    background: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(108, 99, 255, 0.2);
+  }
+}
+
+// ─── Mobile overlay (dark background behind sidebar) ───────
+.sidebar__overlay {
+  position: fixed;
+  inset: 0; // covers entire screen
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999; // below sidebar (1000), above content
+  backdrop-filter: blur(2px);
+}
+
+// ─── Hamburger button (floats top-left on mobile) ──────────
+.sidebar__hamburger {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001; // above everything
+  background: #1a1d2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #252840;
+  }
+}
+
+// ─── Backdrop (click outside to close) ─────────────────────
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 998; // below sidebar, above page content
+}

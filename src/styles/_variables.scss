@@ -1,0 +1,38 @@
+[data-theme="dark"] {
+    --bg-primary: #0f1117;
+    --bg-sidebar: #13151f;
+    --bg-card: #13151f;
+    --bg-card-deep: #0d0f17; // ← deeper card (preview cards)
+    --bg-input: rgba(0, 0, 0, 0.25);
+    --bg-pill: #161825;
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-subtle: rgba(255, 255, 255, 0.03);
+    --text-primary: #ffffff;
+    --text-secondary: #8b8fa8;
+    --text-muted: #5d617a;
+    --bg-mini-stat: rgba(255, 255, 255, 0.03);
+    --chart-line: rgba(255, 255, 255, 0.2);
+    --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f0f2f8;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-deep: #f5f7fc; // ← light version of deep card
+    --bg-input: rgba(0, 0, 0, 0.04);
+    --bg-pill: #eef0f8;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-subtle: rgba(0, 0, 0, 0.05);
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-mini-stat: #f1f5f9;
+    --chart-line: rgba(0, 0, 0, 0.1);
+    --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+// Shared — never change with theme
+$accent-purple: #6c63ff;
+$accent-green: #00e5a0;
+$accent-orange: #ffa726;

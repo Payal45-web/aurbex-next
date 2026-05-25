@@ -1,0 +1,253 @@
+@import '../styles/variables';
+
+.dashboard {
+    padding: 24px;
+    width: 100%; // ✅ Occupy full available space
+    max-width: none; // ✅ Remove any artificial constraints
+    margin: 0;
+    padding-bottom: 60px; // Extra space at the bottom for better feel
+    display: flex;
+    flex-direction: column;
+    gap: 32px; // Consistent vertical spacing between sections
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .dashboard__titles {
+            h1 {
+                font-size: 26px;
+                font-weight: 800; // Extra bold for high impact
+                letter-spacing: -0.02em; // Slightly tighter spacing for a premium feel
+                margin-bottom: 4px;
+                transition: color 0.3s ease;
+                color: var(--text-primary);
+            }
+
+            p {
+                color: #8b8fa8;
+                transition: color 0.3s ease;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &__create-btn {
+        background: linear-gradient(135deg, #6c63ff 0%, #5145cd 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .icon-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 4px;
+            display: flex;
+        }
+    }
+
+    // ✅ FIXED: These are now siblings of the header, not nested inside it
+    &__stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 100%;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: repeat(2, 1fr); // Tablets
+        }
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr; // Mobile phones
+        }
+    }
+
+    &__charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        width: 100%;
+        min-width: 0;
+
+        // Prevents charts from "pushing" the width and causing scrollbars
+        min-width: 0;
+
+        @media (max-width: 900px) {
+            grid-template-columns: 1fr; // Stack charts on top of each other
+        }
+    }
+
+    &__bottom-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 24px;
+        width: 100%;
+
+        @media (max-width: 900px) {
+            grid-template-columns: 1fr; // Stack the list and analytics on mobile
+        }
+    }
+
+    &__card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--card-shadow);
+        border-radius: 20px;
+        padding: 24px;
+        height: 100%;
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+
+            h3 {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            .view-all {
+                color: #6c63ff;
+                font-size: 12px;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .live-tag {
+                color: #00e5a0;
+                font-size: 12px;
+                background: rgba(0, 229, 160, 0.1);
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+// Reusable item styles
+.campaign-item {
+    background: var(--bg-mini-stat);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        font-size: 15px;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+    }
+
+    .stats {
+        display: flex;
+        gap: 20px;
+        font-size: 13px;
+        color: var(--text-secondary);
+
+        strong {
+            color: var(--text-primary);
+            margin-left: 4px;
+        }
+    }
+
+    .status-tag {
+        font-size: 10px;
+        font-weight: 800;
+        color: #00e5a0;
+        background: rgba(0, 229, 160, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+    }
+}
+
+.activity-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+
+    &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+
+    .activity-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        &.purple {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        &.green {
+            background: rgba(0, 229, 160, 0.1);
+            color: var(--text-primary);
+        }
+    }
+
+    .activity-text {
+        display: flex;
+        flex-direction: column; // ✅ Stacks name above paragraph cleanly
+        gap: 3px; // Space between name and text
+        flex: 1; // Allows text to occupy available width smoothly
+
+        p {
+
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 4px;
+            line-height: 1.4;
+            color: var(--text-primary);
+
+        }
+
+        span {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+    }
+
+    .activity-time {
+        margin-left: auto; // pushes element to the edge
+        font-size: 12px;
+        color: var(--text-secondary);
+        white-space: nowrap; // prevents time from breaking into two lines
+        align-self: flex-start; // matches alignment from your screenshot snippet
+        padding-top: 2px;
+    }
+}
